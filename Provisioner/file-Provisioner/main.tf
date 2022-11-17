@@ -6,7 +6,7 @@ region = "us-east-1"
 resource "aws_instance" "web" {
   ami           = "ami-04bf6dcdc9ab498ca"
   instance_type = "t2.micro"
-  key_name      = "aws_iny_lappi"
+  key_name      = "TF_demo"
   user_data     = "${file("httpd.sh")}"
   vpc_security_group_ids = ["${aws_security_group.webSG.id}"]
   tags = {
@@ -21,7 +21,7 @@ resource "null_resource" "copyhtml" {
     type = "ssh"
     host = aws_instance.web.public_ip
     user = "ec2-user"
-    private_key = file("aws_iny_lappi.pem")
+    private_key = file("TF_demo.pem")
     }
   
   provisioner "file" {
